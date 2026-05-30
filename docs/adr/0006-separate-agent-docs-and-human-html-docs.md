@@ -1,7 +1,9 @@
 # 0006. Separate agent docs and human HTML docs
 
-Status: accepted
+Status: superseded by [0008. Use markdown-only project documentation](0008-use-markdown-only-project-documentation.md)
 Date: 2026-05-30
+
+Superseded: 2026-05-31
 
 ## Context and Problem
 
@@ -45,4 +47,4 @@ Negative:
 ## Links
 
 - [../agent/context.md](../agent/context.md)
-- [../human/context.md](../human/context.md)
+- [0008. Use markdown-only project documentation](0008-use-markdown-only-project-documentation.md)

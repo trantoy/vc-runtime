@@ -18,17 +18,17 @@ This folder contains detailed technical markdown documents for agents and develo
 
 - Agent docs can be long and technical.
 - These docs are allowed to contain implementation-level constraints.
-- Human HTML docs should link to these files instead of duplicating every technical detail.
 - Any contradiction between agent docs and ADRs is resolved in favor of accepted ADRs.
 
 ## Decisions
 
-- [../adr/0006-separate-agent-docs-and-human-html-docs.md](../adr/0006-separate-agent-docs-and-human-html-docs.md)
+- [../adr/0008-use-markdown-only-project-documentation.md](../adr/0008-use-markdown-only-project-documentation.md)
 
 ## History
 
 - 2026-05-30: Existing planning documents moved under `docs/agent/`.
 - 2026-05-30: Architecture and governance docs added.
+- 2026-05-31: Markdown kept as the only documentation format.
 
 ## Open Questions
 

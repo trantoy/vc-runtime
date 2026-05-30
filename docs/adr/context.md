@@ -20,10 +20,12 @@ This folder stores Architecture Decision Records.
 ## Decisions
 
 - [0001. Record architecture decisions with MADR](0001-record-architecture-decisions-with-madr.md)
+- [0008. Use markdown-only project documentation](0008-use-markdown-only-project-documentation.md)
 
 ## History
 
 - 2026-05-30: ADR folder and initial decision records added.
+- 2026-05-31: ADR 0008 superseded the earlier human HTML docs decision.
 
 ## Open Questions
 
