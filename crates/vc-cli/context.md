@@ -6,7 +6,7 @@
 
 ## Current Shape
 
-The crate is an empty skeleton. `list-devices` and `passthrough` commands will be added in later Phase 0.1 tasks.
+The crate exposes the `list-devices` command. `passthrough` will be added in a later Phase 0.1 task.
 
 ## Public Contracts
 
@@ -14,6 +14,9 @@ The crate is an empty skeleton. `list-devices` and `passthrough` commands will b
 - CLI parsing and terminal output stay here.
 - CLI code must not own audio callback logic.
 - CLI behavior should report clear errors without panics.
+- Device indices printed by CLI are process-local listing indices.
+- Device listing warnings are printed as warnings, not treated as fatal command errors.
+- Backend probe limitations from the audio crate should stay in the warning section.
 
 ## Decisions
 
@@ -22,6 +25,7 @@ The crate is an empty skeleton. `list-devices` and `passthrough` commands will b
 ## History
 
 - 2026-05-31: Skeleton crate added for Phase 0.1.
+- 2026-05-31: `list-devices` command added.
 
 ## Open Questions
 

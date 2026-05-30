@@ -6,11 +6,17 @@ This glossary keeps frequent and project-specific words stable across code, docs
 
 ## Audio Runtime
 
+**ALSA**
+Advanced Linux Sound Architecture. The main Linux audio backend used by CPAL in Phase 0.1.
+
 **Audio callback**
 Function called by the OS audio backend to provide input frames or request output frames. It must be fast and must not block on model inference.
 
 **Chunk**
 A fixed-size block of audio passed through the voice conversion pipeline. Chunk size strongly affects latency, overhead, and quality.
+
+**CPAL**
+Cross-platform Rust audio I/O library used for Phase 0.1 device listing and passthrough.
 
 **Crossfade**
 Short blend between adjacent generated audio chunks to hide discontinuities.

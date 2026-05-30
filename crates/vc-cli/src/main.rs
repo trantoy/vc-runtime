@@ -1,3 +1,5 @@
 #![forbid(unsafe_code)]
 
-fn main() {}
+fn main() -> anyhow::Result<()> {
+    vc_cli::run()
+}
