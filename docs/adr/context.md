@@ -29,6 +29,7 @@ This folder stores Architecture Decision Records.
 - [0008. Use markdown-only project documentation](0008-use-markdown-only-project-documentation.md)
 - [0009. Rename docs/agent to docs/memory](0009-rename-agent-docs-to-memory.md)
 - [0010. Store phase plans under docs/memory/phases](0010-store-phase-plans-under-memory-phases.md)
+- [0011. Define Phase 0 audio metrics schema](0011-define-phase-0-audio-metrics-schema.md)
 
 ## History
 
@@ -36,6 +37,7 @@ This folder stores Architecture Decision Records.
 - 2026-05-31: ADR 0008 superseded the earlier human HTML docs decision.
 - 2026-05-31: ADR 0009 renamed `docs/agent/` to `docs/memory/`.
 - 2026-05-31: ADR 0010 introduced phase-specific plan folders.
+- 2026-05-31: ADR 0011 recorded the initial public audio metrics schema.
 
 ## Open Questions
 
