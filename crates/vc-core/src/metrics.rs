@@ -8,6 +8,8 @@ pub struct AudioCounters {
     popped_frames: AtomicU64,
     underrun_events: AtomicU64,
     overrun_events: AtomicU64,
+    input_stream_error_events: AtomicU64,
+    output_stream_error_events: AtomicU64,
 }
 
 impl AudioCounters {
@@ -25,6 +27,8 @@ impl AudioCounters {
             popped_frames: self.popped_frames.load(Ordering::Relaxed),
             underrun_events: self.underrun_events.load(Ordering::Relaxed),
             overrun_events: self.overrun_events.load(Ordering::Relaxed),
+            input_stream_error_events: self.input_stream_error_events.load(Ordering::Relaxed),
+            output_stream_error_events: self.output_stream_error_events.load(Ordering::Relaxed),
         }
     }
 
@@ -51,6 +55,16 @@ impl AudioCounters {
     pub fn record_overrun_event(&self) {
         self.overrun_events.fetch_add(1, Ordering::Relaxed);
     }
+
+    pub fn record_input_stream_error_event(&self) {
+        self.input_stream_error_events
+            .fetch_add(1, Ordering::Relaxed);
+    }
+
+    pub fn record_output_stream_error_event(&self) {
+        self.output_stream_error_events
+            .fetch_add(1, Ordering::Relaxed);
+    }
 }
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -61,6 +75,8 @@ pub struct AudioMetricsSnapshot {
     pub popped_frames: u64,
     pub underrun_events: u64,
     pub overrun_events: u64,
+    pub input_stream_error_events: u64,
+    pub output_stream_error_events: u64,
 }
 
 #[cfg(test)]
@@ -79,6 +95,8 @@ mod tests {
         assert_eq!(snapshot.popped_frames, 0);
         assert_eq!(snapshot.underrun_events, 0);
         assert_eq!(snapshot.overrun_events, 0);
+        assert_eq!(snapshot.input_stream_error_events, 0);
+        assert_eq!(snapshot.output_stream_error_events, 0);
     }
 
     #[test]
@@ -93,6 +111,9 @@ mod tests {
         counters.record_underrun_event();
         counters.record_overrun_event();
         counters.record_overrun_event();
+        counters.record_input_stream_error_event();
+        counters.record_output_stream_error_event();
+        counters.record_output_stream_error_event();
 
         let snapshot = counters.snapshot();
 
@@ -102,5 +123,7 @@ mod tests {
         assert_eq!(snapshot.popped_frames, 96);
         assert_eq!(snapshot.underrun_events, 1);
         assert_eq!(snapshot.overrun_events, 2);
+        assert_eq!(snapshot.input_stream_error_events, 1);
+        assert_eq!(snapshot.output_stream_error_events, 2);
     }
 }

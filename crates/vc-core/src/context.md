@@ -14,6 +14,7 @@ This folder contains `vc-core` Rust source files.
 - Source in this crate must remain backend-agnostic.
 - Public types should be small, unit-explicit, and justified by cross-crate use.
 - Snapshot fields must name their units or event semantics explicitly.
+- Stream error counters are event counts and must not imply detailed error diagnostics.
 
 ## Decisions
 
@@ -24,6 +25,7 @@ This folder contains `vc-core` Rust source files.
 
 - 2026-05-31: Source folder added.
 - 2026-05-31: `metrics.rs` added.
+- 2026-05-31: `metrics.rs` extended with stream error event counters.
 
 ## Open Questions
 

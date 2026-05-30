@@ -12,6 +12,9 @@ Advanced Linux Sound Architecture. The main Linux audio backend used by CPAL in 
 **Audio callback**
 Function called by the OS audio backend to provide input frames or request output frames. It must be fast and must not block on model inference.
 
+**Audio frame**
+One timestamped set of samples across all channels. A stereo frame has two samples.
+
 **Chunk**
 A fixed-size block of audio passed through the voice conversion pipeline. Chunk size strongly affects latency, overhead, and quality.
 
@@ -38,6 +41,18 @@ Output device requests audio but the runtime has too few frames ready. Usually h
 
 **Overrun**
 Input produces more frames than downstream stages can consume. Usually causes dropped input frames or growing latency.
+
+**Passthrough**
+Runtime mode that forwards input audio to output audio without voice conversion. It is used to prove device, callback, buffer, and metrics behavior before model inference.
+
+**Sample rate**
+Number of audio frames per second, measured in hertz.
+
+**Sample format**
+Numeric representation of a single audio sample, such as `f32`, `i16`, or `u16`.
+
+**Stream error event**
+Invocation of an audio backend stream error callback. In Phase 0.1 it is counted without storing formatted error text to keep callbacks realtime-safe.
 
 **Xrun**
 Generic audio realtime failure covering underruns and overruns.

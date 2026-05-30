@@ -10,6 +10,7 @@ Phase 0 turns the `vc-runtime` design into measured facts before the project com
 
 - `phase-0-research-plan.md` defines parent Phase 0 research scope.
 - `phase-0-1-audio-passthrough-plan.md` defines the first implementation plan.
+- Phase 0.1 implementation currently has device listing and bounded passthrough commands.
 
 ## Public Contracts
 
@@ -24,13 +25,15 @@ Phase 0 turns the `vc-runtime` design into measured facts before the project com
 - [../../../adr/0003-use-cpal-for-phase-0-audio.md](../../../adr/0003-use-cpal-for-phase-0-audio.md)
 - [../../../adr/0004-use-onnx-runtime-as-mainline-inference.md](../../../adr/0004-use-onnx-runtime-as-mainline-inference.md)
 - [../../../adr/0010-store-phase-plans-under-memory-phases.md](../../../adr/0010-store-phase-plans-under-memory-phases.md)
+- [../../../adr/0012-build-phase-0-passthrough-with-cpal-rtrb.md](../../../adr/0012-build-phase-0-passthrough-with-cpal-rtrb.md)
 
 ## History
 
 - 2026-05-31: Phase 0.1 audio passthrough planning started.
 - 2026-05-31: Parent Phase 0 research plan moved into this folder to avoid split ownership.
+- 2026-05-31: Phase 0.1 bounded CPAL/rtrb passthrough implemented.
 
 ## Open Questions
 
 - Which CPAL device configurations work on the first development machine?
-- Whether the first passthrough run should be bounded by `--seconds` or run until Ctrl+C.
+- Whether Phase 0.2 should add channel remapping or keep exact stream-shape matching longer.

@@ -36,9 +36,13 @@ pushed_frames: u64
 popped_frames: u64
 underrun_events: u64
 overrun_events: u64
+input_stream_error_events: u64
+output_stream_error_events: u64
 ```
 
 `underrun_events` and `overrun_events` count events, not dropped frames or samples.
+
+`input_stream_error_events` and `output_stream_error_events` count CPAL stream error callback invocations. They intentionally do not store error strings because stream error callbacks must remain nonblocking and allocation-free.
 
 `snapshot()` returns an approximate non-transactional report. Fields are loaded independently with relaxed atomic ordering. This is acceptable for realtime health display and unsuitable for deriving strict cross-field invariants.
 
@@ -47,12 +51,14 @@ overrun_events: u64
 Positive:
 
 - Audio callbacks can update counters without locks.
+- Stream error callbacks can report failures without formatting or locking stderr.
 - CLI can print a stable first metrics shape.
 - Event counters are unit-explicit.
 
 Negative:
 
 - The snapshot is not internally consistent at a single instant.
+- Stream error counters expose counts only; detailed backend errors need a later non-realtime diagnostics channel.
 - Later latency histograms will need another schema decision.
 
 ## Links

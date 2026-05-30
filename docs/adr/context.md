@@ -30,6 +30,7 @@ This folder stores Architecture Decision Records.
 - [0009. Rename docs/agent to docs/memory](0009-rename-agent-docs-to-memory.md)
 - [0010. Store phase plans under docs/memory/phases](0010-store-phase-plans-under-memory-phases.md)
 - [0011. Define Phase 0 audio metrics schema](0011-define-phase-0-audio-metrics-schema.md)
+- [0012. Build Phase 0 passthrough with CPAL and rtrb](0012-build-phase-0-passthrough-with-cpal-rtrb.md)
 
 ## History
 
@@ -38,6 +39,7 @@ This folder stores Architecture Decision Records.
 - 2026-05-31: ADR 0009 renamed `docs/agent/` to `docs/memory/`.
 - 2026-05-31: ADR 0010 introduced phase-specific plan folders.
 - 2026-05-31: ADR 0011 recorded the initial public audio metrics schema.
+- 2026-05-31: ADR 0012 recorded the first CPAL/rtrb passthrough runtime boundary.
 
 ## Open Questions
 

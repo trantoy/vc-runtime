@@ -6,7 +6,7 @@ This repository contains `vc-runtime`: a local-first realtime voice conversion r
 
 ## Current Shape
 
-The repository is in Phase 0. It currently contains project memory, ADRs, phase plans, and the initial Rust workspace skeleton.
+The repository is in Phase 0. It currently contains project memory, ADRs, phase plans, the initial Rust workspace, and Phase 0.1 audio device listing/passthrough code.
 
 ## Public Contracts
 
@@ -28,6 +28,7 @@ The repository is in Phase 0. It currently contains project memory, ADRs, phase 
 - [0009. Rename docs/agent to docs/memory](docs/adr/0009-rename-agent-docs-to-memory.md)
 - [0010. Store phase plans under docs/memory/phases](docs/adr/0010-store-phase-plans-under-memory-phases.md)
 - [0011. Define Phase 0 audio metrics schema](docs/adr/0011-define-phase-0-audio-metrics-schema.md)
+- [0012. Build Phase 0 passthrough with CPAL and rtrb](docs/adr/0012-build-phase-0-passthrough-with-cpal-rtrb.md)
 
 ## History
 
@@ -39,9 +40,10 @@ The repository is in Phase 0. It currently contains project memory, ADRs, phase 
 - 2026-05-31: Phase plans moved under `docs/memory/phases/`.
 - 2026-05-31: Initial Phase 0 audio metrics schema added.
 - 2026-05-31: Initial Rust workspace skeleton added.
+- 2026-05-31: Phase 0.1 device listing and CPAL/rtrb passthrough added.
 
 ## Open Questions
 
 - Which RVC model bundle format should be supported first?
-- Which exact CPAL backend behavior is acceptable for Phase 0 passthrough?
 - Which provider path becomes the second production target after CUDA?
+- How strict should Phase 0.2 be about sample-rate conversion and channel remapping?

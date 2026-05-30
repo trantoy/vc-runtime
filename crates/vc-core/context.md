@@ -11,12 +11,15 @@ The crate currently exposes `metrics` with:
 - `AudioCounters`
 - `AudioMetricsSnapshot`
 
+The Phase 0 metrics schema includes callback counts, pushed/popped frame counts, underrun/overrun event counts, and input/output stream error event counts.
+
 ## Public Contracts
 
 - `vc-core` must not depend on CPAL, ONNX Runtime, CLI, daemon, UI, or model-specific crates.
 - Shared units and metric types should live here only when at least two runtime crates need them.
 - Do not add generic helpers or unrelated utilities here.
 - Metrics snapshots are approximate health reports, not transactional state.
+- Stream error metrics count events only; detailed backend error text belongs in a later diagnostics channel.
 
 ## Decisions
 
@@ -27,6 +30,7 @@ The crate currently exposes `metrics` with:
 
 - 2026-05-31: Skeleton crate added for Phase 0.1.
 - 2026-05-31: Phase 0 audio metrics counters added.
+- 2026-05-31: Stream error event counters added for realtime-safe CPAL error callbacks.
 
 ## Open Questions
 

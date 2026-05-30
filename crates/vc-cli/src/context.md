@@ -16,15 +16,20 @@ This folder contains `vc-cli` Rust source files.
 - `main.rs` should stay thin and delegate behavior to the library portion of this crate.
 - Formatting helpers should operate on DTOs from lower-level crates, not CPAL types.
 - `list-devices` output should keep input devices, output devices, and warnings in separate sections.
+- `passthrough` output should print one metrics snapshot per elapsed second.
+- `passthrough` startup output should include selected input/output device names.
+- CPAL stream handles, callbacks, and ring-buffer details must stay in `vc-audio`.
 
 ## Decisions
 
 - [../../../docs/adr/0002-use-rust-for-realtime-runtime.md](../../../docs/adr/0002-use-rust-for-realtime-runtime.md)
+- [../../../docs/adr/0012-build-phase-0-passthrough-with-cpal-rtrb.md](../../../docs/adr/0012-build-phase-0-passthrough-with-cpal-rtrb.md)
 
 ## History
 
 - 2026-05-31: Source folder added.
 - 2026-05-31: `list-devices` command and report formatting added.
+- 2026-05-31: `passthrough` command and metrics-line formatting added.
 
 ## Open Questions
 
