@@ -6,7 +6,7 @@ This repository contains `vc-runtime`: a local-first realtime voice conversion r
 
 ## Current Shape
 
-The repository is in Phase 0. It currently contains project memory, ADRs, phase plans, the initial Rust workspace, and Phase 0.1 audio device listing/passthrough code.
+The repository is in Phase 0. It currently contains project memory, ADRs, phase plans, a Phase 0 results log, the initial Rust workspace, and Phase 0.1 audio device listing/passthrough code.
 
 ## Public Contracts
 
@@ -41,6 +41,7 @@ The repository is in Phase 0. It currently contains project memory, ADRs, phase 
 - 2026-05-31: Initial Phase 0 audio metrics schema added.
 - 2026-05-31: Initial Rust workspace skeleton added.
 - 2026-05-31: Phase 0.1 device listing and CPAL/rtrb passthrough added.
+- 2026-05-31: Phase 0 results log started with Phase 0.1 verification evidence.
 
 ## Open Questions
 

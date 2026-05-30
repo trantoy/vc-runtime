@@ -10,6 +10,7 @@ Phase 0 turns the `vc-runtime` design into measured facts before the project com
 
 - `phase-0-research-plan.md` defines parent Phase 0 research scope.
 - `phase-0-1-audio-passthrough-plan.md` defines the first implementation plan.
+- `results.md` records verified Phase 0 evidence.
 - Phase 0.1 implementation currently has device listing and bounded passthrough commands.
 
 ## Public Contracts
@@ -19,6 +20,7 @@ Phase 0 turns the `vc-runtime` design into measured facts before the project com
 - Audio callbacks must not run model inference.
 - Implementation steps require strict review after each completed task.
 - `results.md` is the rolling Phase 0 evidence log.
+- `results.md` must distinguish compile/test verification from hardware/audio runtime verification.
 
 ## Decisions
 
@@ -32,6 +34,7 @@ Phase 0 turns the `vc-runtime` design into measured facts before the project com
 - 2026-05-31: Phase 0.1 audio passthrough planning started.
 - 2026-05-31: Parent Phase 0 research plan moved into this folder to avoid split ownership.
 - 2026-05-31: Phase 0.1 bounded CPAL/rtrb passthrough implemented.
+- 2026-05-31: Phase 0 results log started with Phase 0.1 verification.
 
 ## Open Questions
 
