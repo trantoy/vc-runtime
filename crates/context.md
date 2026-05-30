@@ -6,12 +6,14 @@ This folder will contain Rust crates for the runtime.
 
 ## Current Shape
 
-No Rust crates have been created yet.
-
-Expected first crates:
+The first Phase 0.1 crates have been created:
 
 - `vc-core`
 - `vc-audio`
+- `vc-cli`
+
+Expected later crates:
+
 - `vc-dsp`
 - `vc-ort`
 - `vc-rvc`
@@ -31,7 +33,8 @@ Expected first crates:
 ## History
 
 - 2026-05-30: Crates folder reserved before Phase 0 implementation.
+- 2026-05-31: Initial `vc-core`, `vc-audio`, and `vc-cli` skeleton crates added.
 
 ## Open Questions
 
-- Whether Phase 0.1 starts as a single crate or a small workspace.
+- Which crate should own runtime configuration once passthrough behavior exists.

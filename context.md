@@ -6,7 +6,7 @@ This repository contains `vc-runtime`: a local-first realtime voice conversion r
 
 ## Current Shape
 
-The repository is in Phase 0. It currently contains planning documents, project memory rules, ADRs, and documentation scaffolding. Runtime code has not started yet.
+The repository is in Phase 0. It currently contains project memory, ADRs, phase plans, and the initial Rust workspace skeleton.
 
 ## Public Contracts
 
@@ -36,6 +36,7 @@ The repository is in Phase 0. It currently contains planning documents, project 
 - 2026-05-31: Human HTML documentation layer removed; markdown kept as the single project documentation format.
 - 2026-05-31: `docs/agent/` renamed to `docs/memory/`.
 - 2026-05-31: Phase plans moved under `docs/memory/phases/`.
+- 2026-05-31: Initial Rust workspace skeleton added.
 
 ## Open Questions
 

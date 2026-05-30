@@ -131,7 +131,9 @@ Review metric API minimality and thread-safety. Be strict about unnecessary depe
 **Files:**
 
 - Modify: `crates/vc-audio/src/lib.rs`
+- Modify: `crates/vc-audio/Cargo.toml`
 - Create: `crates/vc-audio/src/devices.rs`
+- Modify: `crates/vc-cli/Cargo.toml`
 - Modify: `crates/vc-cli/src/lib.rs`
 - Modify: `crates/vc-cli/src/main.rs`
 
@@ -156,7 +158,9 @@ Review device-listing boundaries and CLI behavior. Be strict about leaking CPAL 
 **Files:**
 
 - Modify: `crates/vc-audio/src/lib.rs`
+- Modify: `crates/vc-audio/Cargo.toml`
 - Create: `crates/vc-audio/src/passthrough.rs`
+- Modify: `crates/vc-cli/Cargo.toml`
 - Modify: `crates/vc-cli/src/lib.rs`
 - Modify: `crates/vc-cli/src/main.rs`
 
@@ -210,7 +214,7 @@ cargo fmt --check
 cargo clippy --workspace --all-targets -- -D warnings
 cargo test --workspace
 git diff --check HEAD
-find . -type d -not -path './.git*' -exec sh -c 'test -f "$1/context.md" || echo "missing context: $1"' sh {} \;
+git ls-files -z | xargs -0 -n1 dirname | sort -u | while read -r dir; do test -f "$dir/context.md" || echo "missing context: $dir"; done
 git status --short --branch
 ```
 
