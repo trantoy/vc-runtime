@@ -44,5 +44,5 @@ Negative:
 
 ## Links
 
-- [../agent/architecture.md](../agent/architecture.md)
-- [../agent/phase-0-research-plan.md](../agent/phase-0-research-plan.md)
+- [../memory/architecture.md](../memory/architecture.md)
+- [../memory/phase-0-research-plan.md](../memory/phase-0-research-plan.md)

@@ -41,4 +41,4 @@ Negative:
 ## Links
 
 - [template.md](template.md)
-- [../agent/project-governance.md](../agent/project-governance.md)
+- [../memory/project-governance.md](../memory/project-governance.md)

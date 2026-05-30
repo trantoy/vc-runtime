@@ -34,14 +34,14 @@ The immediate goal is to prove:
 
 - [Repository context](context.md)
 - [Glossary](docs/glossary.md)
-- [Technical docs](docs/agent/context.md)
+- [Project memory](docs/memory/context.md)
 - [Architecture decisions](docs/adr/context.md)
 
 ## Documentation Rules
 
 - Every project folder must contain a `context.md` file.
 - Project documentation is markdown-first.
-- Detailed technical docs live in `docs/agent/`.
+- Detailed technical project memory lives in `docs/memory/`.
 - Shared project terms live in `docs/glossary.md`.
 - Architecture decisions live in numbered ADR files under `docs/adr/`.
 - New large boundaries, providers, daemon protocols, or cross-crate dependencies require an ADR.

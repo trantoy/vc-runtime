@@ -21,11 +21,13 @@ This folder stores Architecture Decision Records.
 
 - [0001. Record architecture decisions with MADR](0001-record-architecture-decisions-with-madr.md)
 - [0008. Use markdown-only project documentation](0008-use-markdown-only-project-documentation.md)
+- [0009. Rename docs/agent to docs/memory](0009-rename-agent-docs-to-memory.md)
 
 ## History
 
 - 2026-05-30: ADR folder and initial decision records added.
 - 2026-05-31: ADR 0008 superseded the earlier human HTML docs decision.
+- 2026-05-31: ADR 0009 renamed `docs/agent/` to `docs/memory/`.
 
 ## Open Questions
 

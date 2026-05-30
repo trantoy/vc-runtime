@@ -43,4 +43,4 @@ Negative:
 ## Links
 
 - [../../context.md](../../context.md)
-- [../agent/project-governance.md](../agent/project-governance.md)
+- [../memory/project-governance.md](../memory/project-governance.md)

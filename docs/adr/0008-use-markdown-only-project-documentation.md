@@ -31,7 +31,7 @@ Remove `docs/human/` and keep:
 
 - `context.md` files for local project memory;
 - `docs/glossary.md` for shared terms;
-- `docs/agent/` for detailed technical docs;
+- `docs/memory/` for detailed technical project memory;
 - `docs/adr/` for architecture decisions;
 - `docs/rfc/` for larger proposals.
 
@@ -52,4 +52,4 @@ Negative:
 ## Links
 
 - [0006. Separate agent docs and human HTML docs](0006-separate-agent-docs-and-human-html-docs.md)
-- [../agent/project-governance.md](../agent/project-governance.md)
+- [../memory/project-governance.md](../memory/project-governance.md)

@@ -42,4 +42,4 @@ Negative:
 
 ## Links
 
-- [../agent/architecture.md](../agent/architecture.md)
+- [../memory/architecture.md](../memory/architecture.md)

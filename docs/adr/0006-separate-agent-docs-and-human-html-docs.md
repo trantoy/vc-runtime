@@ -46,5 +46,5 @@ Negative:
 
 ## Links
 
-- [../agent/context.md](../agent/context.md)
+- [../memory/context.md](../memory/context.md)
 - [0008. Use markdown-only project documentation](0008-use-markdown-only-project-documentation.md)

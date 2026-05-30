@@ -42,5 +42,5 @@ Negative:
 
 ## Links
 
-- [../agent/phase-0-research-plan.md](../agent/phase-0-research-plan.md)
-- [../agent/mvp-scope.md](../agent/mvp-scope.md)
+- [../memory/phase-0-research-plan.md](../memory/phase-0-research-plan.md)
+- [../memory/mvp-scope.md](../memory/mvp-scope.md)
