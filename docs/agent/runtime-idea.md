@@ -167,4 +167,3 @@ Relevant local files in the cloned project:
 - `~/Gits/voice-changer/client/lib/src/client/VoiceChangerWorkletNode.ts`
 
 The current conclusion is a design hypothesis, not a benchmark result. The next step is profiling the real per-stage latency before choosing exactly which code to replace.
-

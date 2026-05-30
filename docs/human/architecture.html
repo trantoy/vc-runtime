@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>vc-runtime architecture</title>
+    <link rel="stylesheet" href="assets/site.css" />
+    <script src="assets/pipeline.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Architecture</h1>
+      <p class="lead">The runtime separates control plane from data plane so UI and configuration cannot stall realtime audio.</p>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="phase-0.html">Phase 0</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="../agent/architecture.md">Technical source</a>
+      </nav>
+    </header>
+    <main>
+      <div id="architecture-pipeline" class="pipeline" aria-label="Runtime pipeline diagram"></div>
+      <section class="grid">
+        <article class="card">
+          <h3>Control plane</h3>
+          <p>Config validation, model loading, provider selection, session lifecycle, UI, CLI, and metrics export.</p>
+        </article>
+        <article class="card">
+          <h3>Data plane</h3>
+          <p>Audio callbacks, ring buffers, chunk scheduling, DSP, model worker deadlines, and output queue health.</p>
+        </article>
+        <article class="card">
+          <h3>Boundary rule</h3>
+          <p>The audio callback never runs model inference, blocks on UI/control tasks, or performs heavy allocation.</p>
+        </article>
+      </section>
+      <h2>First Implementation Target</h2>
+      <pre>input device
+  -> CPAL callback
+  -> ring buffer
+  -> CPAL output callback</pre>
+    </main>
+    <footer>Detailed source: <a href="../agent/architecture.md">docs/agent/architecture.md</a></footer>
+  </body>
+</html>

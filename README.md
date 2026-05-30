@@ -32,8 +32,17 @@ The immediate goal is to prove:
 
 ## Documents
 
-- [Vision](docs/vision.md)
-- [Phase 0 research plan](docs/phase-0-research-plan.md)
-- [MVP scope](docs/mvp-scope.md)
-- [Full design draft](docs/full-design-draft.md)
-- [Original runtime idea](docs/runtime-idea.md)
+- [Repository context](context.md)
+- [Glossary](docs/glossary.md)
+- [Agent technical docs](docs/agent/context.md)
+- [Human visual docs](docs/human/index.html)
+- [Architecture decisions](docs/adr/context.md)
+
+## Documentation Rules
+
+- Every project folder must contain a `context.md` file.
+- Detailed technical docs live in `docs/agent/`.
+- Human-readable visual docs live in `docs/human/`.
+- Shared project terms live in `docs/glossary.md`.
+- Architecture decisions live in numbered ADR files under `docs/adr/`.
+- New large boundaries, providers, daemon protocols, or cross-crate dependencies require an ADR.

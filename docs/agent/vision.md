@@ -17,8 +17,8 @@ The project should not start as another GUI around an existing Python voice chan
 
 Source notes:
 
-- [vc-dis-dok.md](vc-dis-dok.md) - full design doc draft.
-- [realtime-voice-changer-runtime.md](realtime-voice-changer-runtime.md) - earlier focused runtime idea.
+- [full-design-draft.md](full-design-draft.md) - full design doc draft.
+- [runtime-idea.md](runtime-idea.md) - earlier focused runtime idea.
 
 ## Core thesis
 
@@ -99,4 +99,3 @@ The intended growth path:
 6. plugin model families;
 7. advanced accelerators;
 8. SDK/ecosystem.
-

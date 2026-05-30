@@ -12,7 +12,7 @@ The output is not a polished app. The output is evidence:
 - whether RVC ONNX is viable;
 - where the latency is;
 - which provider paths are realistic;
-- which assumptions in [vc-dis-dok.md](vc-dis-dok.md) are wrong or need narrowing.
+- which assumptions in [full-design-draft.md](full-design-draft.md) are wrong or need narrowing.
 
 ## Timebox
 
@@ -185,4 +185,3 @@ If RVC ONNX is too fragile, narrow MVP to:
 - one highly constrained model bundle format.
 
 If CPAL is not enough, decide which platform-specific backend is needed first instead of pretending cross-platform audio is solved.
-

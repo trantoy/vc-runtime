@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>vc-runtime phase 0</title>
+    <link rel="stylesheet" href="assets/site.css" />
+    <script src="assets/pipeline.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Phase 0</h1>
+      <p class="lead">Phase 0 turns the design into measured facts before building a large architecture.</p>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="architecture.html">Architecture</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="../agent/phase-0-research-plan.md">Technical plan</a>
+      </nav>
+    </header>
+    <main>
+      <div id="phase0-pipeline" class="pipeline" aria-label="Phase 0 workstream diagram"></div>
+      <table>
+        <thead>
+          <tr>
+            <th>Workstream</th>
+            <th>Question</th>
+            <th>Evidence</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Audio passthrough</td>
+            <td>Can CPAL support a stable first audio loop?</td>
+            <td>30-minute run, queue depth, underrun and overrun counters.</td>
+          </tr>
+          <tr>
+            <td>RVC ONNX offline</td>
+            <td>Which RVC stages can run through ONNX?</td>
+            <td>Recorded speech converts to output wav with per-stage timings.</td>
+          </tr>
+          <tr>
+            <td>Provider probe</td>
+            <td>Which providers actually work on the machine?</td>
+            <td>JSON report for CPU, CUDA, and experimental providers.</td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+    <footer>Detailed source: <a href="../agent/phase-0-research-plan.md">docs/agent/phase-0-research-plan.md</a></footer>
+  </body>
+</html>

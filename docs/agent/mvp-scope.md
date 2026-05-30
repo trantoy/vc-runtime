@@ -169,4 +169,3 @@ Before moving beyond MVP, answer:
 - Is CPAL enough for the supported audio paths?
 - Are diagnostics understandable to non-developers?
 - Which provider should become second production target?
-
