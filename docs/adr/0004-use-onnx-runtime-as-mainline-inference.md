@@ -45,4 +45,4 @@ Negative:
 ## Links
 
 - [../memory/architecture.md](../memory/architecture.md)
-- [../memory/phase-0-research-plan.md](../memory/phase-0-research-plan.md)
+- [../memory/phases/phase-0/phase-0-research-plan.md](../memory/phases/phase-0/phase-0-research-plan.md)

@@ -12,7 +12,7 @@ The output is not a polished app. The output is evidence:
 - whether RVC ONNX is viable;
 - where the latency is;
 - which provider paths are realistic;
-- which assumptions in [full-design-draft.md](full-design-draft.md) are wrong or need narrowing.
+- which assumptions in [../../full-design-draft.md](../../full-design-draft.md) are wrong or need narrowing.
 
 ## Timebox
 

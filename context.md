@@ -26,6 +26,7 @@ The repository is in Phase 0. It currently contains planning documents, project 
 - [0007. Require context files in project folders](docs/adr/0007-require-context-md-in-project-folders.md)
 - [0008. Use markdown-only project documentation](docs/adr/0008-use-markdown-only-project-documentation.md)
 - [0009. Rename docs/agent to docs/memory](docs/adr/0009-rename-agent-docs-to-memory.md)
+- [0010. Store phase plans under docs/memory/phases](docs/adr/0010-store-phase-plans-under-memory-phases.md)
 
 ## History
 
@@ -34,6 +35,7 @@ The repository is in Phase 0. It currently contains planning documents, project 
 - 2026-05-30: Documentation architecture, glossary, folder contexts, and ADR process added.
 - 2026-05-31: Human HTML documentation layer removed; markdown kept as the single project documentation format.
 - 2026-05-31: `docs/agent/` renamed to `docs/memory/`.
+- 2026-05-31: Phase plans moved under `docs/memory/phases/`.
 
 ## Open Questions
 

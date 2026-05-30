@@ -1,0 +1,36 @@
+# Context
+
+## Purpose
+
+This folder contains Phase 0 plans and results.
+
+Phase 0 turns the `vc-runtime` design into measured facts before the project commits to a larger architecture.
+
+## Current Shape
+
+- `phase-0-research-plan.md` defines parent Phase 0 research scope.
+- `phase-0-1-audio-passthrough-plan.md` defines the first implementation plan.
+
+## Public Contracts
+
+- Phase 0 work must stay evidence-driven.
+- Phase 0.1 does not include ML, ONNX, daemon, UI, Tauri, provider manager, or RVC inference.
+- Audio callbacks must not run model inference.
+- Implementation steps require strict review after each completed task.
+- `results.md` is the rolling Phase 0 evidence log.
+
+## Decisions
+
+- [../../../adr/0003-use-cpal-for-phase-0-audio.md](../../../adr/0003-use-cpal-for-phase-0-audio.md)
+- [../../../adr/0004-use-onnx-runtime-as-mainline-inference.md](../../../adr/0004-use-onnx-runtime-as-mainline-inference.md)
+- [../../../adr/0010-store-phase-plans-under-memory-phases.md](../../../adr/0010-store-phase-plans-under-memory-phases.md)
+
+## History
+
+- 2026-05-31: Phase 0.1 audio passthrough planning started.
+- 2026-05-31: Parent Phase 0 research plan moved into this folder to avoid split ownership.
+
+## Open Questions
+
+- Which CPAL device configurations work on the first development machine?
+- Whether the first passthrough run should be bounded by `--seconds` or run until Ctrl+C.

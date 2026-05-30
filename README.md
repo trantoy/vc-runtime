@@ -35,6 +35,7 @@ The immediate goal is to prove:
 - [Repository context](context.md)
 - [Glossary](docs/glossary.md)
 - [Project memory](docs/memory/context.md)
+- [Phase plans](docs/memory/phases/context.md)
 - [Architecture decisions](docs/adr/context.md)
 
 ## Documentation Rules
