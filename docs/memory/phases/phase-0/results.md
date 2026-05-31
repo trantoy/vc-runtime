@@ -223,3 +223,35 @@ What this does not prove:
   or provider performance.
 - The local 10-second run is a smoke check; longer fixture durations and multiple
   machines are still needed for comparative benchmark evidence.
+
+## Initial `vc-bench` Promotion
+
+Date: 2026-05-31
+
+Production artifact:
+
+- `crates/vc-bench/`
+
+What was promoted:
+
+- offline 16-bit PCM WAV benchmark runner;
+- `copy`, `gain`, and `rms` stages;
+- benchmark report v1 fields;
+- `--max-realtime-factor` and `--max-deadline-misses` threshold mode;
+- source id, input checksum, and build profile provenance fields.
+
+Production verification:
+
+- `cargo fmt --check`: passed.
+- `cargo test --workspace`: passed.
+- `cargo clippy --workspace --all-targets -- -D warnings`: passed.
+- `cargo run -p vc-bench -- --input experiments/offline-audio-bench/fixtures/audio/wizard-of-oz-01-16k-mono.wav --source-id librivox-wizard-of-oz-01 --stage copy --max-realtime-factor 0.01 --max-deadline-misses 0`: passed.
+- `cargo run -p vc-bench -- --input experiments/offline-audio-bench/fixtures/audio/wizard-of-oz-01-16k-mono.wav --source-id librivox-wizard-of-oz-01 --stage copy --max-realtime-factor NaN`: failed with `max-realtime-factor must be finite and >= 0`, as expected.
+
+What remains experimental:
+
+- public-domain fixture fetch/prepare scripts remain under
+  `experiments/offline-audio-bench/`;
+- richer provenance such as CPU, OS, compiler version, git commit, and dependency
+  graph is deferred;
+- DSP/model stages are not yet promoted.

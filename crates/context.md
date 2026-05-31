@@ -6,11 +6,12 @@ This folder will contain Rust crates for the runtime.
 
 ## Current Shape
 
-The first Phase 0.1 crates have been created:
+The first crates have been created:
 
 - `vc-core`
 - `vc-audio`
 - `vc-cli`
+- `vc-bench`
 
 Expected later crates:
 
@@ -18,7 +19,6 @@ Expected later crates:
 - `vc-ort`
 - `vc-rvc`
 - `vc-daemon`
-- `vc-bench`
 
 ## Public Contracts
 
@@ -34,6 +34,7 @@ Expected later crates:
 
 - 2026-05-30: Crates folder reserved before Phase 0 implementation.
 - 2026-05-31: Initial `vc-core`, `vc-audio`, and `vc-cli` skeleton crates added.
+- 2026-05-31: `vc-bench` added for offline prerecorded-audio benchmark reports.
 
 ## Open Questions
 
