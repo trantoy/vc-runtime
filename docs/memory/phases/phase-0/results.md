@@ -174,7 +174,7 @@ Fixture source:
 
 Static verification:
 
-- `cargo test` in `experiments/offline-audio-bench`: passed with two tests.
+- `cargo test` in `experiments/offline-audio-bench`: passed with six tests.
 - `cargo fmt --check` in `experiments/offline-audio-bench`: passed.
 - `bash -n scripts/fetch_wizard_of_oz_fixture.sh`: passed.
 
@@ -183,6 +183,8 @@ Runtime verification:
 - `./scripts/fetch_wizard_of_oz_fixture.sh --duration-seconds 10`: passed and
   generated a local 10-second 16 kHz mono WAV.
 - `cargo run -- --input fixtures/audio/wizard-of-oz-01-16k-mono.wav --chunk-ms 100 --hop-ms 50 --stage rms --pretty`: passed.
+- `cargo run -- --input fixtures/audio/wizard-of-oz-01-16k-mono.wav --source-id librivox-wizard-of-oz-01 --chunk-ms 100 --hop-ms 50 --stage copy --max-realtime-factor 0.01 --max-deadline-misses 0`: passed.
+- `cargo run -- --input fixtures/audio/wizard-of-oz-01-16k-mono.wav --chunk-ms 100 --hop-ms 50 --stage copy --max-realtime-factor 0 --max-deadline-misses 0`: failed with exit code `1` and a threshold failure message, as expected.
 
 Observed report shape from the 10-second fixture:
 
@@ -196,6 +198,9 @@ Observed report shape from the 10-second fixture:
 - `stage=rms`
 - `deadline_miss_events=0`
 - `accumulated_delay_ms=0.0`
+- `source_id` is supported for manifest-based fixture identity.
+- `input_content_checksum` is supported for prepared-audio identity.
+- `build_profile` is reported as `debug` or `release`.
 
 What this proves:
 
@@ -206,6 +211,10 @@ What this proves:
 - The benchmark report can capture deterministic chunking, per-chunk timing
   percentiles, realtime factor, deadline misses, accumulated delay, and a
   checksum.
+- The report schema can document field names, units, and compatibility rules
+  before the format is promoted to `vc-bench`.
+- Threshold mode can turn a benchmark report into a regression check with
+  non-zero exit status.
 
 What this does not prove:
 

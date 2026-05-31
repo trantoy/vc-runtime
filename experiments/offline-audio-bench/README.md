@@ -12,6 +12,10 @@ This experiment answers that with an offline prerecorded-audio harness:
 - measured per-chunk processing time,
 - JSON report output suitable for comparing commits and machines.
 
+The report schema is documented in `schemas/benchmark-report-v1.md`. It fixes
+field names, units, and compatibility rules so reports can be read by scripts,
+CI, future UI, and later `vc-bench` without guessing semantics.
+
 ## Source audio
 
 The default fixture source is a public-domain LibriVox recording hosted on
@@ -35,6 +39,7 @@ The script requires `curl` and `ffmpeg`.
 ```bash
 cargo run -- \
   --input fixtures/audio/wizard-of-oz-01-16k-mono.wav \
+  --source-id librivox-wizard-of-oz-01 \
   --chunk-ms 100 \
   --hop-ms 50 \
   --stage rms \
@@ -49,20 +54,44 @@ cargo run -- \
   --output reports/wizard-of-oz-rms.json
 ```
 
-## Current stage
+## Current stages
 
-`rms` is intentionally simple. It is a harness-validation stage, not a model
-benchmark. It proves that WAV loading, chunk slicing, timing, deadline accounting,
-and report generation work before adding DSP/model stages.
+Current stages are intentionally simple harness-validation stages, not model
+benchmarks:
+
+- `copy`: baseline chunk scan that sums samples without changing them.
+- `gain`: simple DSP-like multiply stage.
+- `rms`: simple analysis stage.
+
+These prove that WAV loading, chunk slicing, timing, deadline accounting, and
+report generation work before adding heavier DSP/model stages.
 
 ## Report fields
 
 - `sample_rate_hz`, `channels`, `input_frames`, `duration_ms`
+- `source_id`, `input_content_checksum`, `build_profile`
 - `chunk_ms`, `hop_ms`, `chunk_frames`, `hop_frames`, `chunk_count`
 - `total_processing_ms`, `realtime_factor`
 - `chunk_processing_p50_us`, `chunk_processing_p95_us`, `chunk_processing_p99_us`
 - `deadline_miss_events`, `accumulated_delay_ms`
 - `checksum`
+
+See `schemas/benchmark-report-v1.md` for field units and compatibility rules.
+
+## Regression thresholds
+
+Threshold mode makes the benchmark act like a test:
+
+```bash
+cargo run -- \
+  --input fixtures/audio/wizard-of-oz-01-16k-mono.wav \
+  --source-id librivox-wizard-of-oz-01 \
+  --stage copy \
+  --max-realtime-factor 0.01 \
+  --max-deadline-misses 0
+```
+
+If a threshold fails, the command exits non-zero after producing the report.
 
 ## Promotion criteria
 

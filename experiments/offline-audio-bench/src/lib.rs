@@ -7,12 +7,16 @@ use std::time::Instant;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, ValueEnum)]
 pub enum Stage {
+    Copy,
+    Gain,
     Rms,
 }
 
 impl Stage {
     pub const fn as_str(self) -> &'static str {
         match self {
+            Self::Copy => "copy",
+            Self::Gain => "gain",
             Self::Rms => "rms",
         }
     }
@@ -21,15 +25,25 @@ impl Stage {
 #[derive(Clone, Debug)]
 pub struct BenchConfig {
     pub input_path: PathBuf,
+    pub source_id: Option<String>,
     pub chunk_ms: u32,
     pub hop_ms: u32,
     pub stage: Stage,
+}
+
+#[derive(Clone, Copy, Debug, Default)]
+pub struct ThresholdConfig {
+    pub max_realtime_factor: Option<f64>,
+    pub max_deadline_misses: Option<u64>,
 }
 
 #[derive(Clone, Debug, Serialize)]
 pub struct BenchReport {
     pub schema_version: u32,
     pub input_path: String,
+    pub source_id: Option<String>,
+    pub input_content_checksum: u64,
+    pub build_profile: String,
     pub sample_rate_hz: u32,
     pub channels: u16,
     pub input_frames: u64,
@@ -50,12 +64,19 @@ pub struct BenchReport {
     pub checksum: u64,
 }
 
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct ThresholdEvaluation {
+    pub passed: bool,
+    pub failures: Vec<String>,
+}
+
 #[derive(Debug)]
 struct WavInput {
     sample_rate_hz: u32,
     channels: u16,
     input_frames: usize,
     mono_samples: Vec<f32>,
+    content_checksum: u64,
 }
 
 #[derive(Debug, Parser)]
@@ -67,6 +88,10 @@ struct Cli {
     /// Input WAV file. The prototype currently supports 16-bit PCM WAV.
     #[arg(long)]
     input: PathBuf,
+
+    /// Stable fixture/source id from a manifest.
+    #[arg(long)]
+    source_id: Option<String>,
 
     /// Chunk size in milliseconds.
     #[arg(long, default_value_t = 100)]
@@ -87,16 +112,31 @@ struct Cli {
     /// Pretty-print JSON output.
     #[arg(long, default_value_t = false)]
     pretty: bool,
+
+    /// Fail the run if realtime_factor is above this value.
+    #[arg(long)]
+    max_realtime_factor: Option<f64>,
+
+    /// Fail the run if deadline_miss_events is above this value.
+    #[arg(long)]
+    max_deadline_misses: Option<u64>,
 }
 
 pub fn run_cli() -> Result<()> {
     let cli = Cli::parse();
+    let thresholds = ThresholdConfig {
+        max_realtime_factor: cli.max_realtime_factor,
+        max_deadline_misses: cli.max_deadline_misses,
+    };
+    validate_thresholds(thresholds)?;
     let report = run_benchmark(&BenchConfig {
         input_path: cli.input,
+        source_id: cli.source_id,
         chunk_ms: cli.chunk_ms,
         hop_ms: cli.hop_ms,
         stage: cli.stage,
     })?;
+    let evaluation = evaluate_thresholds(&report, thresholds);
     let json = if cli.pretty {
         serde_json::to_string_pretty(&report)?
     } else {
@@ -108,6 +148,12 @@ pub fn run_cli() -> Result<()> {
     } else {
         println!("{json}");
     }
+
+    ensure!(
+        evaluation.passed,
+        "benchmark thresholds failed: {}",
+        evaluation.failures.join("; ")
+    );
 
     Ok(())
 }
@@ -160,6 +206,9 @@ pub fn run_benchmark(config: &BenchConfig) -> Result<BenchReport> {
     Ok(BenchReport {
         schema_version: 1,
         input_path: config.input_path.display().to_string(),
+        source_id: config.source_id.clone(),
+        input_content_checksum: input.content_checksum,
+        build_profile: build_profile().to_owned(),
         sample_rate_hz: input.sample_rate_hz,
         channels: input.channels,
         input_frames: input.input_frames as u64,
@@ -202,12 +251,15 @@ fn read_wav_input(path: &Path) -> Result<WavInput> {
 
     let input_frames = raw_samples.len() / channels;
     let mut mono_samples = Vec::with_capacity(input_frames);
+    let mut content_checksum = 0xcbf2_9ce4_8422_2325_u64;
     for frame in raw_samples.chunks_exact(channels) {
         let sum: f32 = frame
             .iter()
             .map(|sample| f32::from(*sample) / f32::from(i16::MAX))
             .sum();
-        mono_samples.push(sum / channels as f32);
+        let mono = sum / channels as f32;
+        mono_samples.push(mono);
+        content_checksum = update_checksum(content_checksum, mono);
     }
 
     Ok(WavInput {
@@ -215,6 +267,7 @@ fn read_wav_input(path: &Path) -> Result<WavInput> {
         channels: spec.channels,
         input_frames,
         mono_samples,
+        content_checksum,
     })
 }
 
@@ -230,10 +283,58 @@ fn frames_for_ms(sample_rate_hz: u32, ms: u32) -> Result<usize> {
 
 fn process_stage(stage: Stage, chunk: &[f32]) -> f32 {
     match stage {
+        Stage::Copy => chunk.iter().copied().sum::<f32>(),
+        Stage::Gain => chunk.iter().map(|sample| sample * 0.5).sum::<f32>(),
         Stage::Rms => {
             let square_sum: f32 = chunk.iter().map(|sample| sample * sample).sum();
             (square_sum / chunk.len() as f32).sqrt()
         }
+    }
+}
+
+pub fn evaluate_thresholds(report: &BenchReport, config: ThresholdConfig) -> ThresholdEvaluation {
+    let mut failures = Vec::new();
+
+    if let Some(max) = config.max_realtime_factor {
+        if report.realtime_factor > max {
+            failures.push(format!(
+                "realtime_factor {:.6} exceeded max {:.6}",
+                report.realtime_factor, max
+            ));
+        }
+    }
+
+    if let Some(max) = config.max_deadline_misses {
+        if report.deadline_miss_events > max {
+            failures.push(format!(
+                "deadline_miss_events {} exceeded max {}",
+                report.deadline_miss_events, max
+            ));
+        }
+    }
+
+    ThresholdEvaluation {
+        passed: failures.is_empty(),
+        failures,
+    }
+}
+
+pub fn validate_thresholds(config: ThresholdConfig) -> Result<()> {
+    if let Some(max) = config.max_realtime_factor {
+        ensure!(
+            max.is_finite() && max >= 0.0,
+            "max-realtime-factor must be finite and >= 0"
+        );
+    }
+
+    Ok(())
+}
+
+fn build_profile() -> &'static str {
+    if cfg!(debug_assertions) {
+        "debug"
+    } else {
+        "release"
     }
 }
 
@@ -284,6 +385,7 @@ mod tests {
 
         let report = run_benchmark(&BenchConfig {
             input_path: input,
+            source_id: Some("synthetic-test".to_owned()),
             chunk_ms: 100,
             hop_ms: 50,
             stage: Stage::Rms,
@@ -295,9 +397,138 @@ mod tests {
         assert_eq!(report.channels, 1);
         assert_eq!(report.input_frames, 16_000);
         assert_eq!(report.duration_ms, 1_000);
+        assert_eq!(report.source_id.as_deref(), Some("synthetic-test"));
+        assert_ne!(report.input_content_checksum, 0);
         assert_eq!(report.chunk_count, 19);
         assert_eq!(report.deadline_miss_events, 0);
         assert_ne!(report.checksum, 0);
+    }
+
+    #[test]
+    fn supports_baseline_copy_and_gain_stages() {
+        let dir = tempdir().expect("tempdir");
+        let input = dir.path().join("speech.wav");
+        write_test_wav(&input);
+
+        let copy_report = run_benchmark(&BenchConfig {
+            input_path: input.clone(),
+            source_id: None,
+            chunk_ms: 100,
+            hop_ms: 50,
+            stage: Stage::Copy,
+        })
+        .expect("copy benchmark");
+        let gain_report = run_benchmark(&BenchConfig {
+            input_path: input,
+            source_id: None,
+            chunk_ms: 100,
+            hop_ms: 50,
+            stage: Stage::Gain,
+        })
+        .expect("gain benchmark");
+
+        assert_eq!(copy_report.stage, "copy");
+        assert_eq!(gain_report.stage, "gain");
+        assert_ne!(copy_report.checksum, gain_report.checksum);
+        assert_eq!(copy_report.chunk_count, gain_report.chunk_count);
+    }
+
+    #[test]
+    fn evaluates_thresholds_for_regression_mode() {
+        let report = BenchReport {
+            schema_version: 1,
+            input_path: "fixture.wav".to_owned(),
+            source_id: Some("fixture-id".to_owned()),
+            input_content_checksum: 41,
+            build_profile: "debug".to_owned(),
+            sample_rate_hz: 16_000,
+            channels: 1,
+            input_frames: 16_000,
+            duration_ms: 1_000,
+            chunk_ms: 100,
+            hop_ms: 50,
+            chunk_frames: 1_600,
+            hop_frames: 800,
+            chunk_count: 19,
+            stage: "copy".to_owned(),
+            total_processing_ms: 120.0,
+            realtime_factor: 0.12,
+            chunk_processing_p50_us: 100,
+            chunk_processing_p95_us: 120,
+            chunk_processing_p99_us: 130,
+            deadline_miss_events: 2,
+            accumulated_delay_ms: 4.0,
+            checksum: 42,
+        };
+
+        let evaluation = evaluate_thresholds(
+            &report,
+            ThresholdConfig {
+                max_realtime_factor: Some(0.10),
+                max_deadline_misses: Some(0),
+            },
+        );
+
+        assert!(!evaluation.passed);
+        assert_eq!(
+            evaluation.failures,
+            vec![
+                "realtime_factor 0.120000 exceeded max 0.100000",
+                "deadline_miss_events 2 exceeded max 0"
+            ]
+        );
+    }
+
+    #[test]
+    fn rejects_non_finite_thresholds() {
+        let error = validate_thresholds(ThresholdConfig {
+            max_realtime_factor: Some(f64::NAN),
+            max_deadline_misses: None,
+        })
+        .unwrap_err()
+        .to_string();
+
+        assert_eq!(error, "max-realtime-factor must be finite and >= 0");
+    }
+
+    #[test]
+    fn serializes_v1_report_contract_fields() {
+        let report = BenchReport {
+            schema_version: 1,
+            input_path: "fixture.wav".to_owned(),
+            source_id: Some("fixture-id".to_owned()),
+            input_content_checksum: 41,
+            build_profile: "debug".to_owned(),
+            sample_rate_hz: 16_000,
+            channels: 1,
+            input_frames: 16_000,
+            duration_ms: 1_000,
+            chunk_ms: 100,
+            hop_ms: 50,
+            chunk_frames: 1_600,
+            hop_frames: 800,
+            chunk_count: 19,
+            stage: "copy".to_owned(),
+            total_processing_ms: 1.25,
+            realtime_factor: 0.00125,
+            chunk_processing_p50_us: 10,
+            chunk_processing_p95_us: 20,
+            chunk_processing_p99_us: 30,
+            deadline_miss_events: 0,
+            accumulated_delay_ms: 0.0,
+            checksum: 42,
+        };
+
+        let value = serde_json::to_value(report).expect("serialize");
+
+        assert_eq!(value["schema_version"], 1);
+        assert_eq!(value["source_id"], "fixture-id");
+        assert_eq!(value["input_content_checksum"], 41);
+        assert_eq!(value["build_profile"], "debug");
+        assert_eq!(value["stage"], "copy");
+        assert_eq!(value["chunk_processing_p99_us"], 30);
+        assert_eq!(value["deadline_miss_events"], 0);
+        assert_eq!(value["checksum"], 42);
     }
 
     #[test]
@@ -308,6 +539,7 @@ mod tests {
 
         let error = run_benchmark(&BenchConfig {
             input_path: input,
+            source_id: None,
             chunk_ms: 0,
             hop_ms: 50,
             stage: Stage::Rms,
