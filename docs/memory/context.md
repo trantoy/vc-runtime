@@ -13,6 +13,8 @@ This folder contains detailed technical project memory.
 - `architecture.md` summarizes the intended technical architecture.
 - `architecture-guide.md` defines recurring maintainability rules for boundaries, APIs, reviews, and agents.
 - `runtime-architecture-v1.md` defines the target runtime architecture and phase-by-phase evolution path.
+- `main-pc-handoff.md` preserves current progress and next steps for moving work
+  to the stronger NVIDIA development machine.
 - `full-design-draft.md` preserves the long-form design draft.
 - `runtime-idea.md` preserves the earlier focused runtime idea.
 - `phases/` contains phase-specific plans and results.
@@ -42,6 +44,7 @@ This folder contains detailed technical project memory.
 - 2026-05-31: Maintainable architecture guide added with external source notes.
 - 2026-05-31: Runtime architecture v1 added as the target architecture and evolution map.
 - 2026-05-31: ADR 0013 made architecture memory docs normative guidance under ADR precedence.
+- 2026-05-31: Main PC handoff added after `vc-bench` promotion.
 
 ## Open Questions
 

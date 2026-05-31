@@ -12,6 +12,8 @@ Phase 0 turns the `vc-runtime` design into measured facts before the project com
 - `phase-0-1-audio-passthrough-plan.md` defines the first implementation plan.
 - `results.md` records verified Phase 0 evidence.
 - Phase 0.1 implementation currently has device listing and bounded passthrough commands.
+- `vc-bench` exists for offline prerecorded-audio benchmark reports and can be
+  used as supporting evidence, while live audio soak tests remain Phase 0 work.
 
 ## Public Contracts
 
@@ -35,8 +37,11 @@ Phase 0 turns the `vc-runtime` design into measured facts before the project com
 - 2026-05-31: Parent Phase 0 research plan moved into this folder to avoid split ownership.
 - 2026-05-31: Phase 0.1 bounded CPAL/rtrb passthrough implemented.
 - 2026-05-31: Phase 0 results log started with Phase 0.1 verification.
+- 2026-05-31: Offline benchmark prototype promoted into `vc-bench`.
 
 ## Open Questions
 
 - Which CPAL device configurations work on the first development machine?
 - Whether Phase 0.2 should add channel remapping or keep exact stream-shape matching longer.
+- Which `vc-bench` provenance fields are required before comparing laptop and
+  main PC performance.

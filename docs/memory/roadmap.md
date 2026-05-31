@@ -31,11 +31,13 @@ Phase 0.1 is implemented.
 
 Available today:
 
-- Rust workspace with `vc-core`, `vc-audio`, and `vc-cli`.
+- Rust workspace with `vc-core`, `vc-audio`, `vc-cli`, and `vc-bench`.
 - `vc list-devices` for CPAL input/output enumeration.
 - `vc passthrough --seconds N` for bounded input-to-output passthrough.
 - Metrics for callbacks, pushed/popped frames, underruns, overruns, and stream
   error events.
+- `vc-bench` offline prerecorded-audio benchmark with report v1 and threshold
+  mode.
 - Linux development-machine smoke verification.
 
 Not available today:
@@ -49,6 +51,12 @@ Not available today:
 - daemon/control API;
 - UI;
 - packaging.
+
+Next hardware context:
+
+- Work is expected to move from the laptop to a stronger main PC with an NVIDIA
+  GPU and 16 GB VRAM. Use that machine for CUDA/provider evidence, not for
+  undocumented architecture jumps.
 
 ## Phase sequence
 
