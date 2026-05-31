@@ -1,0 +1,11 @@
+{
+  "available_providers": [
+    "CPUExecutionProvider",
+    "OpenVINOExecutionProvider"
+  ],
+  "fallback_chain": [
+    "CUDAExecutionProvider",
+    "DirectMLExecutionProvider",
+    "CPUExecutionProvider"
+  ]
+}

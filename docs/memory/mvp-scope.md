@@ -85,7 +85,8 @@ Diagnostics:
 
 - per-stage timing;
 - p50/p95/p99 chunk time;
-- provider per stage;
+- provider availability and observed provider assignment at the strongest proven
+  granularity;
 - accumulated delay / queue growth;
 - diagnostic export.
 

@@ -378,7 +378,8 @@ output_push_timestamp
 first_output_callback_timestamp
 input_queue_frames
 output_queue_frames
-provider_per_stage
+observed_provider_assignment
+provider_assignment_granularity
 dropped_frames
 underrun_count
 overrun_count
@@ -1167,7 +1168,8 @@ policy:
 
 ```text
 available_providers
-selected_provider_per_stage
+observed_provider_assignment
+provider_assignment_granularity
 fallback_reason
 provider_init_time_ms
 provider_benchmark_p50/p95/p99

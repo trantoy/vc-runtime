@@ -1,0 +1,15 @@
+{
+  "requested_provider": "CUDAExecutionProvider",
+  "provider_probe_status": "requested_provider_available",
+  "observed_provider_assignment": [
+    {
+      "scope": "session",
+      "requested_provider": "CUDAExecutionProvider",
+      "observed_provider": "CUDAExecutionProvider",
+      "observed_with": "fixture",
+      "evidence": "requested provider present in fixture availability list"
+    }
+  ],
+  "provider_assignment_granularity": "session",
+  "errors": []
+}

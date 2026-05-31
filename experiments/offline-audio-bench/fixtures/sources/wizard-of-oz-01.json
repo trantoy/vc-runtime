@@ -1,0 +1,10 @@
+{
+  "id": "librivox-wizard-of-oz-01",
+  "title": "The Wonderful Wizard of Oz, Chapter 1",
+  "source_page": "https://commons.wikimedia.org/wiki/File:LibriVox_-_The_Wonderful_Wizard_of_Oz_01.ogg",
+  "download_url": "https://commons.wikimedia.org/wiki/Special:Redirect/file/LibriVox%20-%20The%20Wonderful%20Wizard%20of%20Oz%2001.ogg",
+  "source": "LibriVox via Wikimedia Commons",
+  "license_note": "Public domain / LibriVox public-domain dedication",
+  "prepared_wav": "fixtures/audio/wizard-of-oz-01-16k-mono.wav",
+  "prepare_default_duration_seconds": 120
+}

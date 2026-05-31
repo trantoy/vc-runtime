@@ -6,6 +6,12 @@ Created: 2026-05-30
 
 `vc-runtime` is built around a separation between control plane and data plane.
 
+This file is the short architecture summary. The draft target architecture and
+phase-by-phase evolution path live in
+[runtime-architecture-v1.md](runtime-architecture-v1.md). That document is
+normative review guidance under ADR precedence, not proof that every target
+component already exists.
+
 ```text
 CLI / local web UI / future Tauri app
   -> control API
@@ -80,7 +86,8 @@ underrun_count
 overrun_count
 total_chunk_ms
 realtime_factor
-provider_per_stage
+observed_provider_assignment
+provider_assignment_granularity
 ```
 
 ## Dependency Direction

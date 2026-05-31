@@ -31,6 +31,7 @@ This folder stores Architecture Decision Records.
 - [0010. Store phase plans under docs/memory/phases](0010-store-phase-plans-under-memory-phases.md)
 - [0011. Define Phase 0 audio metrics schema](0011-define-phase-0-audio-metrics-schema.md)
 - [0012. Build Phase 0 passthrough with CPAL and rtrb](0012-build-phase-0-passthrough-with-cpal-rtrb.md)
+- [0013. Treat architecture memory docs as normative guidance](0013-treat-architecture-memory-docs-as-normative-guidance.md)
 
 ## History
 
@@ -40,6 +41,7 @@ This folder stores Architecture Decision Records.
 - 2026-05-31: ADR 0010 introduced phase-specific plan folders.
 - 2026-05-31: ADR 0011 recorded the initial public audio metrics schema.
 - 2026-05-31: ADR 0012 recorded the first CPAL/rtrb passthrough runtime boundary.
+- 2026-05-31: ADR 0013 made selected architecture memory docs normative guidance under ADR precedence.
 
 ## Open Questions
 

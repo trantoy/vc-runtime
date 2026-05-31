@@ -109,7 +109,8 @@ underrun_count
 overrun_count
 total_chunk_ms
 realtime_factor
-provider_per_stage
+observed_provider_assignment
+provider_assignment_granularity
 ```
 
 Exit criteria:

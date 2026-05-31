@@ -1,0 +1,6 @@
+Passthrough started: input_device="DryRunMic" output_device="DryRunSpk" sample_rate_hz=44100 channels=2 capacity_frames=48000
+t=1s input_cb=10 output_cb=10 pushed_frames=22050 popped_frames=21200 underrun_events=2 overrun_events=0 input_stream_error_events=0 output_stream_error_events=0
+t=2s input_cb=20 output_cb=20 pushed_frames=44100 popped_frames=44100 underrun_events=2 overrun_events=0 input_stream_error_events=0 output_stream_error_events=0
+t=3s input_cb=30 output_cb=30 pushed_frames=66150 popped_frames=66150 underrun_events=2 overrun_events=0 input_stream_error_events=0 output_stream_error_events=0
+t=4s input_cb=40 output_cb=40 pushed_frames=88200 popped_frames=88200 underrun_events=3 overrun_events=0 input_stream_error_events=0 output_stream_error_events=0
+t=5s input_cb=50 output_cb=50 pushed_frames=110250 popped_frames=110250 underrun_events=3 overrun_events=0 input_stream_error_events=0 output_stream_error_events=0
